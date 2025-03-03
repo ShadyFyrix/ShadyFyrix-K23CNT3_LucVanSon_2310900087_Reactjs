@@ -5,6 +5,10 @@ import LvsEventForm2 from "./components/LvsEventForm2";
 import LvsEventForm3 from "./components/LvsEventForm3";
 import LvsEventForm4 from "./components/LvsEventForm4";
 import LvsEventForm5 from "./components/LvsEventForm5";
+import LvsEventForm6 from "./components/LvsEventForm6";
+import LvsRenderArry from "./components/LvsRenderArry";
+import LvsRenderCondition from "./components/LvsRenderCondition";
+import LvsRenderListObject from "./components/LvsRenderListObject";
 
 function LvsApp() {
   return (
@@ -20,6 +24,14 @@ function LvsApp() {
       <LvsEventForm4 />
       <hr />
       <LvsEventForm5 />
+      <hr />
+      <LvsEventForm6 />
+      <hr />
+      <LvsRenderCondition />
+      <hr />
+      <LvsRenderArry />
+      <hr />
+      <LvsRenderListObject />
     </div>
   );
 }
