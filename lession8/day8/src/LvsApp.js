@@ -49,11 +49,75 @@ class App extends React.Component {
       LvsStudent: "",
     };
   }
+  // Thêm sinh viên mới với dữ liệu trống
+  handleAdd = () => {
+    this.setState((prevState) => {
+      const newId = prevState.students.length + 1; // STT tự động tăng
+      const newStudent = {
+        LvsId: newId,
+        LvsStudentName: "",
+        LvsAge: "",
+        LvsGender: "Nam",
+      };
+      return { students: [...prevState.students, newStudent] };
+    });
+  };
 
+  // Cập nhật dữ liệu khi chỉnh sửa trực tiếp trên danh sách
+  handleUpdate = (updatedStudent) => {
+    this.setState((prevState) => ({
+      students: prevState.students.map((student) =>
+        student.LvsId === updatedStudent.LvsId ? updatedStudent : student
+      ),
+    }));
+  };
+
+  // Hàm xử lý thêm mới sinh viên
+  LvsHandleAdd = () => {
+    this.setState((prevState) => {
+      const newId = `SV00${prevState.LvsStudents.length + 1}`; // Tự động tăng Mã sinh viên
+      const newStudent = {
+        LvsId: newId,
+        LvsStudentName: "",
+        LvsAge: "",
+        LvsGender: "Nam",
+        LvsBirthday: "",
+        LvsBirthPlace: "",
+        LvsAddress: "",
+      };
+      return {
+        LvsStudents: [...prevState.LvsStudents, newStudent],
+      };
+    });
+  };
+  // Hàm xử lý cập nhật sinh viên sau khi sửa
+  LvsHandleSubmit = (updatedStudent) => {
+    this.setState((prevState) => ({
+      LvsStudents: prevState.LvsStudents.map((student) =>
+        student.LvsId === updatedStudent.LvsId ? updatedStudent : student
+      ),
+      LvsStudent: "", // Reset form sau khi cập nhật
+    }));
+  };
   // Hàm xử lý sự kiện view Student
   LvsHandleView = (LvsStudent) => {
     this.setState({
       LvsStudent: LvsStudent,
+    });
+  };
+  // Hàm xử lý sự kiện edit student
+  LvsHandleEdit = (LvsStudent) => {
+    this.setState({
+      LvsStudent: LvsStudent,
+    });
+  };
+  // Hàm xử lý sự kiện xóa Student
+  LvsHandleDelete = (LvsId) => {
+    let newStudents = this.state.LvsStudents.filter(
+      (student) => student.LvsId !== LvsId
+    );
+    this.setState({
+      LvsStudents: newStudents,
     });
   };
 
@@ -69,18 +133,23 @@ class App extends React.Component {
             <div className="col-lg-7 grid-margin stretch-card">
               <div className="card">
                 {/* header */}
-                <LvsControl />
+                <LvsControl onAdd={this.LvsHandleAdd} />
                 {/* danh sách sinh vien  */}
                 <LvsStudentList
                   renderLvsStudents={this.state.LvsStudents}
                   onLvsHandleView={this.LvsHandleView}
+                  onLvsHandleEdit={this.LvsHandleEdit}
+                  onLvsHandleDelete={this.LvsHandleDelete}
                 />
               </div>
             </div>
 
             <div className="col-5 grid-margin">
               {/* form  */}
-              <LvsForm renderLvsStudent={this.state.LvsStudent} />
+              <LvsForm
+                renderLvsStudent={this.state.LvsStudent}
+                onLvsHandleSubmit={this.LvsHandleSubmit}
+              />
             </div>
           </div>
         </section>

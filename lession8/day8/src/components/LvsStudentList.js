@@ -5,27 +5,37 @@ class LvsStudentList extends Component {
   constructor(props) {
     super(props);
   }
-  // Hàm xử lý sự kiện xêm
+  // Hàm xử lý sự kiện xem
   LvsHandleView = (LvsStudent) => {
-    // Chuyển dữ liệu lên LvsApp
     this.props.onLvsHandleView(LvsStudent);
   };
 
-  render() {
-    // lấy dữ liệu trong props từ LvsApp chuyển xuống
-    let { renderLvsStudents } = this.props;
-    console.log("List:", renderLvsStudents);
+  // Hàm xử lý sự kiện sửa
+  LvsHandleEdit = (LvsStudent) => {
+    this.props.onLvsHandleEdit(LvsStudent);
+  };
 
-    // chuyển dữ liệu vào LvsStudent để hiển thị
+  // Hàm xử lý sự kiện xóa
+  LvsHandleDelete = (LvsId) => {
+    this.props.onLvsHandleDelete(LvsId);
+  };
+
+  render() {
+    let { renderLvsStudents } = this.props;
+
     let LvsElementStudent = renderLvsStudents.map((LvsItem, index) => {
       return (
         <LvsStudent
-          key={index}
+          key={LvsItem.LvsId}
+          index={index}
           renderLvsStudent={LvsItem}
           onLvsHandleView={this.LvsHandleView}
+          onLvsHandleEdit={this.LvsHandleEdit}
+          onLvsHandleDelete={this.LvsHandleDelete}
         />
       );
     });
+
     return (
       <div className="card-body">
         <h3 className="card-title">Danh sách sinh viên</h3>

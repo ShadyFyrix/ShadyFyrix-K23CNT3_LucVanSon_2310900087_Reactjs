@@ -1,20 +1,57 @@
 import React, { Component } from "react";
 
 class LvsForm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      LvsId: "",
+      LvsStudentName: "",
+      LvsAge: "",
+      LvsGender: "",
+      LvsBirthday: "",
+      LvsBirthPlace: "",
+      LvsAddress: "",
+    };
+  }
+
+  // Khi nhận dữ liệu mới từ props, cập nhật state
+  componentDidUpdate(prevProps) {
+    if (
+      prevProps.renderLvsStudent !== this.props.renderLvsStudent &&
+      this.props.renderLvsStudent
+    ) {
+      this.setState({ ...this.props.renderLvsStudent });
+    }
+  }
+
+  // Xử lý thay đổi trên các input
+  handleChange = (event) => {
+    this.setState({
+      [event.target.name]: event.target.value,
+    });
+  };
+
+  // Xử lý khi nhấn Submit
+  handleSubmit = (event) => {
+    event.preventDefault();
+    this.props.onLvsHandleSubmit(this.state);
+  };
+
   render() {
-    let { renderLvsStudent } = this.props;
     return (
       <div className="card">
         <div className="card-body">
           <h3 className="card-title">Thông tin sinh viên</h3>
-          <form className="form-sample">
+          <form className="form-sample" onSubmit={this.handleSubmit}>
             <div className="form-group row">
               <label className="col-sm-3 col-form-label">Mã sinh viên</label>
               <div className="col-sm-9">
                 <input
                   type="text"
                   className="form-control"
-                  value={renderLvsStudent.LvsId}
+                  name="LvsId"
+                  value={this.state.LvsId}
+                  readOnly
                 />
               </div>
             </div>
@@ -24,7 +61,9 @@ class LvsForm extends Component {
                 <input
                   type="text"
                   className="form-control"
-                  value={renderLvsStudent.LvsStudentName}
+                  name="LvsStudentName"
+                  value={this.state.LvsStudentName}
+                  onChange={this.handleChange}
                 />
               </div>
             </div>
@@ -32,9 +71,11 @@ class LvsForm extends Component {
               <label className="col-sm-3 col-form-label">Tuổi</label>
               <div className="col-sm-9">
                 <input
-                  type="text"
+                  type="number"
                   className="form-control"
-                  value={renderLvsStudent.LvsAge}
+                  name="LvsAge"
+                  value={this.state.LvsAge}
+                  onChange={this.handleChange}
                 />
               </div>
             </div>
@@ -43,10 +84,12 @@ class LvsForm extends Component {
               <div className="col-sm-9">
                 <select
                   className="form-control"
-                  value={renderLvsStudent.LvsGender}
+                  name="LvsGender"
+                  value={this.state.LvsGender}
+                  onChange={this.handleChange}
                 >
-                  <option>Nam</option>
-                  <option>Nữ</option>
+                  <option value="Nam">Nam</option>
+                  <option value="Nữ">Nữ</option>
                 </select>
               </div>
             </div>
@@ -54,9 +97,11 @@ class LvsForm extends Component {
               <label className="col-sm-3 col-form-label">Ngày sinh</label>
               <div className="col-sm-9">
                 <input
+                  type="text"
                   className="form-control"
-                  placeholder="dd/mm/yyyy"
-                  value={renderLvsStudent.LvsBirthday}
+                  name="LvsBirthday"
+                  value={this.state.LvsBirthday}
+                  onChange={this.handleChange}
                 />
               </div>
             </div>
@@ -65,12 +110,14 @@ class LvsForm extends Component {
               <div className="col-sm-9">
                 <select
                   className="form-control"
-                  value={renderLvsStudent.LvsBirthPlace}
+                  name="LvsBirthPlace"
+                  value={this.state.LvsBirthPlace}
+                  onChange={this.handleChange}
                 >
-                  <option value={"HN"}>Hà Nội</option>
-                  <option value={"TpHCM"}>TP. Hồ Chí Minh</option>
-                  <option value={"DN"}>Đà Nẵng</option>
-                  <option value={"QN"}>Quảng Ninh</option>
+                  <option value="HN">Hà Nội</option>
+                  <option value="TpHCM">TP. Hồ Chí Minh</option>
+                  <option value="DN">Đà Nẵng</option>
+                  <option value="QN">Quảng Ninh</option>
                 </select>
               </div>
             </div>
@@ -79,12 +126,14 @@ class LvsForm extends Component {
               <div className="col-sm-9">
                 <textarea
                   className="form-control"
-                  defaultValue={renderLvsStudent.LvsAddress}
+                  name="LvsAddress"
+                  value={this.state.LvsAddress}
+                  onChange={this.handleChange}
                 />
               </div>
             </div>
             <button type="submit" className="btn btn-primary me-2">
-              Submit
+              Lưu
             </button>
           </form>
         </div>
