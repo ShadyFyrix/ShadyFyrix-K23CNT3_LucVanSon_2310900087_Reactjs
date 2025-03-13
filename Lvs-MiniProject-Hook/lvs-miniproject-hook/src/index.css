@@ -1,0 +1,107 @@
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css");
+
+body, html {
+  height: 100vh;
+  margin: 0;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Arial", sans-serif;
+  transition: background 0.5s ease-in-out;
+}
+
+/* Light Mode */
+.light-mode {
+  background: linear-gradient(to top, #56ccf2, #8bed2f);
+}
+
+/* Dark Mode */
+.dark-mode {
+  background: linear-gradient(to top, #232526, #414345);
+}
+/* Light Mode Card */
+.light-mode .app-container {
+  background: rgba(255, 255, 255, 0.9);
+}
+
+/* Dark Mode Card */
+.dark-mode .app-container {
+  background: rgba(255, 255, 255, 0.9);
+}
+.app-container {
+  text-align: center;
+  width: 400px;
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+.loading-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+.list-group-item {
+  transition: all 0.3s ease;
+}
+
+.list-group-item:hover {
+  background-color: rgba(225, 239, 64, 0.769);
+  transform: scale(1.01);
+}
+
+button {
+  transition: transform 0.2s ease;
+}
+
+button:hover {
+  transform: scale(1.1);
+}
+.success-message {
+  color: green;
+  font-weight: bold;
+  margin-top: 10px;
+}
+/* Star Container */
+.stars-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Stars */
+.star {
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.8;
+  animation: rise var(--speed) linear infinite;
+}
+
+/* Animation: Rising Stars */
+@keyframes rise {
+  0% {
+    transform: translateY(100vh) translateX(0);
+    opacity: 0.2;
+  }
+  100% {
+    transform: translateY(-10vh) translateX(var(--random-x));
+    opacity: 1;
+  }
+}
